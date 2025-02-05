@@ -1,5 +1,7 @@
 package adventure_game.player;
 
+import adventure_game.inventory.Weapon;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class Player {
     private Integer damage;
     private Integer health;
     private Double money;
+    private Weapon weapon = new Weapon(0, "none", 0, 0);
 
     public Player(Integer id, String name, Integer damage, Integer health, Double money) {
         this.id = id;
@@ -64,13 +67,22 @@ public class Player {
         this.money = money;
     }
 
-    public void selectCharacter() {
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public Player selectCharacter() {
         System.out.println("\tCharacters");
         Samurai samurai = new Samurai();
         Knight knight = new Knight();
         Archer archer = new Archer();
         System.out.println(samurai + "\n" + knight + "\n" + archer);
-
+        System.out.println("------------------------------------------");
+        Player player = null;
         while (true) {
 
             try {
@@ -79,12 +91,15 @@ public class Player {
                     throw new InputMismatchException("please try again(just 1,2,3)");
                 } else if (num == 1) {
                     System.out.println("Your character is " + samurai);
-
+                    player = samurai;
                 } else if (num == 2) {
                     System.out.println("Your character is " + knight);
-
-                } else System.out.println("Your character is " + archer);
-                break;
+                    player = knight;
+                } else {
+                    System.out.println("Your character is " + archer);
+                    player = archer;
+                }
+                return player;
 
             } catch (InputMismatchException ie) {
                 System.out.println(ie.getMessage());
