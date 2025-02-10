@@ -33,8 +33,13 @@ public class EnterGame {
                     4.Forest
                     5.River
                     6.exit
-                    """);
+                   ###################
+                   """);
             int menu = getText("Choose Location:", Integer.class);
+            while(menu<=0 || menu>6){
+                System.out.println("This location was not fount,please try again.");
+                 menu = getText("Choose Location:", Integer.class);
+            }
             switch (menu) {
                 case 1:
                     location = new SafeHouse(player);
