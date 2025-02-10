@@ -1,14 +1,7 @@
 package adventure_game;
 
-import adventure_game.Location.*;
-import adventure_game.player.Archer;
-import adventure_game.player.Knight;
+import adventure_game.location.*;
 import adventure_game.player.Player;
-import adventure_game.player.Samurai;
-import adventure_game.util.InputUtil;
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Scanner;
 
 import static adventure_game.util.InputUtil.getText;
 

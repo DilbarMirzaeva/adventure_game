@@ -1,4 +1,4 @@
-package adventure_game.Location;
+package adventure_game.location;
 
 import adventure_game.player.Player;
 

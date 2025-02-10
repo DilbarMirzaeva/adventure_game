@@ -1,4 +1,4 @@
-package adventure_game.Location;
+package adventure_game.location;
 
 import adventure_game.inventory.Armor;
 import adventure_game.inventory.Inventory;
