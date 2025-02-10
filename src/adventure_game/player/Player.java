@@ -1,12 +1,11 @@
 package adventure_game.player;
 
+import adventure_game.inventory.Armor;
 import adventure_game.inventory.Weapon;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import static adventure_game.util.InputUtil.getText;
-import static adventure_game.util.InputUtil.sc;
 
 public class Player {
     private Integer id;
@@ -15,6 +14,8 @@ public class Player {
     private Integer health;
     private Double money;
     private Weapon weapon = new Weapon(0, "none", 0, 0);
+    private Armor armor = new Armor(0, "none", 0, 0);
+
 
     public Player(Integer id, String name, Integer damage, Integer health, Double money) {
         this.id = id;
@@ -75,6 +76,14 @@ public class Player {
         this.weapon = weapon;
     }
 
+    public Armor getArmor() {
+        return armor;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
+    }
+
     public Player selectCharacter() {
         System.out.println("\tCharacters");
         Samurai samurai = new Samurai();
@@ -82,12 +91,12 @@ public class Player {
         Archer archer = new Archer();
         System.out.println(samurai + "\n" + knight + "\n" + archer);
         System.out.println("------------------------------------------");
-        Player player = null;
         while (true) {
 
             try {
                 Integer num = getText("Please choose your character(id): ", Integer.class);
-                if (num < 0 || num > 3) {
+                Player player;
+                if (num <= 0 || num > 3) {
                     throw new InputMismatchException("please try again(just 1,2,3)");
                 } else if (num == 1) {
                     System.out.println("Your character is " + samurai);
