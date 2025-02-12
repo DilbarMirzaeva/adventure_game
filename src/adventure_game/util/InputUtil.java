@@ -23,7 +23,7 @@ public class InputUtil {
                 }
             }
             catch (NumberFormatException e) {
-                System.out.println( "Invalid age,try again(input integer)..");
+                System.out.println( "Invalid ,try again(input integer)..");
             }
         }
     }

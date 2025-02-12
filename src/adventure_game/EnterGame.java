@@ -18,6 +18,8 @@ public class EnterGame {
         Location location = null;
         boolean bool=true;
         while (bool) {
+            System.out.println("--------------------------------");
+            System.out.println(player);
             System.out.println("""
                     #####Locations#####
                     1.SafeHouse
@@ -30,29 +32,18 @@ public class EnterGame {
                    """);
             int menu = getText("Choose Location:", Integer.class);
             while(menu<=0 || menu>6){
-                System.out.println("This location was not fount,please try again.");
-                 menu = getText("Choose Location:", Integer.class);
+                 menu = getText("This location was not fount,please try again:", Integer.class);
             }
             switch (menu) {
-                case 1:
-                    location = new SafeHouse(player);
-                    break;
-                case 2:
-                    location = new ToolStore(player);
-                    location.onLocation();
-                    break;
-                case 3:
-                    location = new Cave(player);
-                    break;
-                case 4:
-                    location = new Forest(player);
-                    break;
-                case 5:
-                    location = new River(player);
-                    break;
-                case 6:
-                    bool=false;
+                case 1 -> location = new SafeHouse(player);
+                case 2 -> location = new ToolStore(player);
+                case 3 -> location = new Cave(player);
+                case 4 -> location = new Forest(player);
+                case 5 -> location = new River(player);
+                case 6 -> bool = false;
             }
+            assert location!=null;
+            location.onLocation();
         }
     }
 }

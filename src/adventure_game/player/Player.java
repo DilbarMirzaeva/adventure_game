@@ -85,7 +85,7 @@ public class Player {
     }
 
     public Player selectCharacter() {
-        System.out.println("\tCharacters");
+        System.out.println("\t\t######Characters#######");
         Samurai samurai = new Samurai();
         Knight knight = new Knight();
         Archer archer = new Archer();

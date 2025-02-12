@@ -17,6 +17,7 @@ public class ToolStore extends Location {
     @Override
     public boolean onLocation() {
         System.out.println("You are at " + getName() + ", you can buy weapon or armor.");
+        System.out.println("Your balance : " + getPlayer().getMoney());
         System.out.print("""
                 ***
                 1.Weapon
@@ -26,9 +27,7 @@ public class ToolStore extends Location {
                 """);
         Integer choose = getText("Your choice:", Integer.class);
         while(choose<0 || choose>3){
-            System.out.println("Please try again(just 1,2 or 3)");
-             choose = getText("Your choice:", Integer.class);
-
+             choose = getText("Please try again(just 1,2 or 3) : ", Integer.class);
         }
 
         switch (choose) {
@@ -45,27 +44,35 @@ public class ToolStore extends Location {
 
     public void selectWeapon() {
         System.out.println("-----------------------------");
-        System.out.println("Your balance : " + getPlayer().getMoney());
+        System.out.println("##########WEAPONS############");
         System.out.println(weapons());
         Integer selectedId = getText("Enter the weapon Id:", Integer.class);
+        while (selectedId<1 || selectedId>3){
+            selectedId=getText("Invalid input, enter the ID between 1 and 3:",Integer.class);
+        }
         Weapon selectedWeapon = Inventory.weaponById(selectedId);
         if (getPlayer().getMoney() >= selectedWeapon.getPrice()) {
             System.out.println("Your old weapon: " + getPlayer().getWeapon());
             getPlayer().setWeapon(selectedWeapon);
             System.out.println("Your new weapon: " + getPlayer().getWeapon());
             getPlayer().setMoney(getPlayer().getMoney() - selectedWeapon.getPrice());
+            getPlayer().setDamage(getPlayer().getDamage()+selectedWeapon.getDamage());
         } else {
             System.out.println("You don't have enough money..");
         }
         System.out.println("-----------------------------");
+        onLocation();
 
     }
 
     public void selectArmor(){
         System.out.println("-----------------------------");
-        System.out.println("Your balance : "+getPlayer().getMoney());
+        System.out.println("##########ARMORS############");
         System.out.println(armors());
         Integer selectedId=getText("Enter the armor Id : ",Integer.class);
+        while (selectedId<1 || selectedId>3){
+            selectedId=getText("Invalid input, enter the ID between 1 and 3:",Integer.class);
+        }
         Armor selectedArmor=Inventory.armorById(selectedId);
         if(getPlayer().getMoney() >= selectedArmor.getPrice()){
             System.out.println("Your old armor : "+getPlayer().getArmor());
@@ -76,7 +83,7 @@ public class ToolStore extends Location {
             System.out.println("You don't have enough money..");
         }
         System.out.println("-----------------------------");
-
+        onLocation();
     }
 
 }
