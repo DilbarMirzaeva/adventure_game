@@ -31,6 +31,7 @@ public class EnterGame {
                    ###################
                    """);
             int menu = getText("Choose Location:", Integer.class);
+            System.out.println("------------------------------");
             while(menu<=0 || menu>6){
                  menu = getText("This location was not fount,please try again:", Integer.class);
             }

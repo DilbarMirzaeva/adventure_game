@@ -3,7 +3,9 @@ package adventure_game.player;
 import adventure_game.inventory.Armor;
 import adventure_game.inventory.Weapon;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import static adventure_game.util.InputUtil.getText;
 
@@ -12,17 +14,20 @@ public class Player {
     private String name;
     private Integer damage;
     private Integer health;
-    private Double money;
+    private Integer originalHealth;
+    private Integer money;
     private Weapon weapon = new Weapon(0, "none", 0, 0);
     private Armor armor = new Armor(0, "none", 0, 0);
+    private final List<String> award = new ArrayList<>();
 
 
-    public Player(Integer id, String name, Integer damage, Integer health, Double money) {
+    public Player(Integer id, String name, Integer damage, Integer health, Integer money) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.health = health;
         this.money = money;
+        this.originalHealth=health;
     }
 
     public Player() {
@@ -57,14 +62,25 @@ public class Player {
     }
 
     public void setHealth(Integer health) {
+        if(health<0){
+            health=0;
+        }
         this.health = health;
     }
 
-    public Double getMoney() {
+    public Integer getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(Integer originalHealth) {
+        this.originalHealth = originalHealth;
+    }
+
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 
@@ -82,6 +98,14 @@ public class Player {
 
     public void setArmor(Armor armor) {
         this.armor = armor;
+    }
+
+    public List<String> getAward() {
+        return award;
+    }
+
+    public void setAward(String award){
+        this.award.add(award);
     }
 
     public Player selectCharacter() {

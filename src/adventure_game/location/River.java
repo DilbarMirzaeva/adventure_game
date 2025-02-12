@@ -1,14 +1,10 @@
 package adventure_game.location;
 
+import adventure_game.monster.Bear;
 import adventure_game.player.Player;
 
-public class River extends Location{
+public class River extends DangerZone{
     public River(Player player) {
-        super(player,"River");
-    }
-
-    @Override
-    public boolean onLocation() {
-        return false;
+        super(player, "River", new Bear(), "Water");
     }
 }

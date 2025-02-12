@@ -4,15 +4,19 @@ public class Monster {
     private Integer id;
     private String name;
     private Integer damage;
+    private Integer originalDamage;
+    private Integer originalHealth;
     private Integer health;
-    private Double money;
+    private Integer money;
 
-    public Monster(Integer id, String name, Integer damage, Integer health, Double money) {
+    public Monster(Integer id, String name, Integer damage, Integer health, Integer money) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.health = health;
         this.money = money;
+        this.originalHealth=health;
+        this.originalDamage=damage;
     }
 
     public Integer getId() {
@@ -44,14 +48,33 @@ public class Monster {
     }
 
     public void setHealth(Integer health) {
+        if(health<0){
+            health=0;
+        }
         this.health = health;
     }
 
-    public Double getMoney() {
+    public Integer getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(Integer originalHealth) {
+        this.originalHealth = originalHealth;
+    }
+
+    public Integer getOriginalDamage() {
+        return originalDamage;
+    }
+
+    public void setOriginalDamage(Integer originalDamage) {
+        this.originalDamage = originalDamage;
+    }
+
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 

@@ -9,6 +9,8 @@ public class SafeHouse extends Location{
 
     @Override
     public boolean onLocation() {
+        getPlayer().setHealth(getPlayer().getOriginalHealth());
+        System.out.println("Your health fulled!");
         return false;
     }
 }
