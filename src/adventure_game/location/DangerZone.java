@@ -36,6 +36,15 @@ public class DangerZone extends Location {
 
     @Override
     public boolean onLocation() {
+        for (String s : getPlayer().getAward()) {
+            if ((this instanceof Cave && s.equals("Food"))
+                    || (this instanceof Forest && s.equals("Firewood"))
+                    || (this instanceof River && s.equals("Water"))) {
+                System.out.println("You have already fought this zone and collect the award.");
+                return false;
+            }
+
+        }
 
         System.out.println("You are at " + getName() + ". Be careful,there have " + getMonster().getName());
         Random random = new Random();
@@ -46,13 +55,12 @@ public class DangerZone extends Location {
             monster.setHealth(monster.getOriginalHealth());
             System.out.println(monster);
             System.out.println(getPlayer());
-            System.out.println("""
+            int opt = getText("""
                     ----------
                     1.Fight with monster(s)
                     2.Leave there
                     ----------
-                    """);
-            int opt = getText("Your option :", Integer.class);
+                    """, Integer.class);
 
             while (opt < 0 || opt > 2) {
                 opt = getText("Invalid input,try again(1 or 2)", Integer.class);
@@ -60,13 +68,14 @@ public class DangerZone extends Location {
 
             switch (opt) {
                 case 1:
-                    if(!getPlayer().getArmor().equals("none")){
-                        monster.setDamage(monster.getDamage()-getPlayer().getArmor().getBlock());
+                    if (!getPlayer().getArmor().equals("none")) {
+                        monster.setDamage(monster.getDamage() - getPlayer().getArmor().getBlock());
                     }
+
                     while (getPlayer().getHealth() > 0 && getMonster().getHealth() > 0) {
                         boolean bool = random.nextBoolean();
-                        System.out.println("------------------------------");
                         if (bool) {
+                            System.out.println("------------------------------");
                             if (getPlayer().getHealth() > 0) {
                                 monster.setHealth(monster.getHealth() - getPlayer().getDamage());
                                 System.out.printf("You hit the %s, %s health %d: \n", monster.getName(), monster.getName(), monster.getHealth());
@@ -84,35 +93,36 @@ public class DangerZone extends Location {
                                 monster.setHealth(monster.getHealth() - getPlayer().getDamage());
                                 System.out.printf("You hit the %s, %s health %d: \n", monster.getName(), monster.getName(), monster.getHealth());
                             }
+                            System.out.println("------------------------------");
                         }
-                        System.out.println("------------------------------");
-                        monster.setDamage(monster.getOriginalDamage());
 
-                        if(monster.getHealth()<=0){
-                            System.out.printf("You killed the %s and won %d loot!\n",monster.getName(),monster.getMoney());
-                            getPlayer().setMoney(getPlayer().getMoney()+monster.getMoney());
+                        if (monster.getHealth() <= 0) {
+                            System.out.printf("$$ You killed the %d.%s and won %d loot! $$\n", i + 1, monster.getName(), monster.getMoney());
+                            getPlayer().setMoney(getPlayer().getMoney() + monster.getMoney());
+                            System.out.println("------------------------------");
                         }
-                        System.out.println("------------------------------");
-                        if(getPlayer().getHealth()<=0){
+
+                        if (getPlayer().getHealth() <= 0) {
                             System.err.println("YOU ARE DEAD, GAME OVER..");
-                            break;
+                            return true;
                         }
-
                     }
+                    monster.setDamage(monster.getOriginalDamage());
                     break;
 
                 case 2:
-                    return true;
+                    return false;
             }
         }
-        System.out.printf("Congratulations,you killed all of the %s!! Your award: %s\n",monster.getName(),getAward());
+        System.out.printf("$$ Congratulations,you killed all of the %s!! Your award: %s $$\n", monster.getName(), getAward());
         getPlayer().setAward(getAward());
-        if(Stream.of("Food","Water","FireWood").allMatch(getPlayer().getAward()::contains)){
+        if (Stream.of("Food", "Water", "Firewood").allMatch(getPlayer().getAward()::contains)) {
             System.err.println("YOU KILLED ALL MONSTERS, YOU WON THE GAME!!!");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
+
 }
 
 

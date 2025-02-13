@@ -19,6 +19,8 @@ public class Player {
     private Weapon weapon = new Weapon(0, "none", 0, 0);
     private Armor armor = new Armor(0, "none", 0, 0);
     private final List<String> award = new ArrayList<>();
+    private final List<Armor> armorList=new ArrayList<>();
+    private final List<Weapon> weaponList=new ArrayList<>();
 
 
     public Player(Integer id, String name, Integer damage, Integer health, Integer money) {
@@ -106,6 +108,22 @@ public class Player {
 
     public void setAward(String award){
         this.award.add(award);
+    }
+
+    public List<Armor> getArmorList() {
+        return armorList;
+    }
+
+    public void setArmorList(Armor armor) {
+        this.armorList.add(armor);
+    }
+
+    public List<Weapon> getWeaponList() {
+        return weaponList;
+    }
+
+    public void setWeaponList(Weapon weapon) {
+        this.weaponList.add(weapon);
     }
 
     public Player selectCharacter() {
