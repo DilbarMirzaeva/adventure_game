@@ -2,7 +2,7 @@ package adventure_game.player;
 
 public class Samurai extends Player {
     public Samurai() {
-        super(1, "Samurai", 7, 30, 20);
+        super(1, "Samurai", 7, 35, 20);
     }
 
     @Override

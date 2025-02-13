@@ -1,5 +1,7 @@
 package adventure_game.inventory;
 
+import java.util.Objects;
+
 public class Armor {
     private Integer id;
     private String name;
@@ -43,6 +45,19 @@ public class Armor {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Armor armor = (Armor) o;
+        return Objects.equals(id, armor.id) && Objects.equals(name, armor.name) && Objects.equals(block, armor.block) && Objects.equals(price, armor.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, block, price);
     }
 
     @Override
